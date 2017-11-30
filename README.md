@@ -29,7 +29,7 @@ IDE：Intellij Idea
 
 # 表结构设计
 ![image](https://github.com/Zhsta/firstWeb/raw/master/img/24.gif)
-# 功能简介以及表结构
+# 功能简介
 ## 登录和注册面板
 检测输入的用户名，密码是否正确，是否存在于黑名单中，以及在开放游客学生和游客老师的注册）
 #### 登录界面

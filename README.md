@@ -1,5 +1,5 @@
 # 简介
-这是一个简单的教务管理系统
+这是一个简单的教务管理系统网站
 
 # 使用技术
 IoC容器:spring
@@ -12,6 +12,7 @@ orm框架:mybatis
 
 前端框架:Bootstrap
 
+IDE：Intellij Idea
 # 使用介绍
 首先导入web.sql， 在springmvc中连接好数据库，在注册界面选择注册管理员账户，进行登录。
 

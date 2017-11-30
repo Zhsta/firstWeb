@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.StudentMapper">
+    <select id="get" parameterType="string" resultType="Student">
+      SELECT * FROM student WHERE username=#{value}
+    </select>
+   <update id="update" parameterType="Student">
+       UPDATE student SET name=#{name} where username=#{username}
+   </update>
+
+    <delete id="delete" parameterType="int">
+      DELETE FROM student WHERE student_id=#{value}
+    </delete>
+
+    <insert id="add" parameterType="Student">
+        INSERT INTO student VALUES (null,#{username},#{password},#{role},#{name})
+    </insert>
+
+    <select id="getId" parameterType="string" resultType="integer">
+        SELECT student.student_id from student WHERE  username=#{value}
+    </select>
+
+
+
+</mapper>

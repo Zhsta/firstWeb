@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.Student_PropertyMapper">
+    <select id="get" parameterType="int" resultType="Student_Property">
+        SELECT property_id,property_name FROM student_property WHERE student_id=#{value} order by property_id
+    </select>
+
+
+    <delete id="deleteAll" parameterType="int">
+        DELETE FROM student_property WHERE student_id=#{value}
+    </delete>
+
+    <delete id="deleteOneLine" parameterType="int">
+        DELETE FROM  student_property WHERE  property_id=#{value}
+    </delete>
+
+    <update id="update" parameterType="Student_Property">
+        UPDATE student_property SET student_id=#{student.student_id},
+        property_name=#{property_name}
+        WHERE  property_id=#{property_id}
+    </update>
+
+    <insert id="add" parameterType="Student_Property">
+        INSERT INTO student_property VALUES (null,#{student.student_id},#{property_name})
+    </insert>
+
+</mapper>

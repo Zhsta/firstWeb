@@ -1,0 +1,41 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.TP_Value">
+    <resultMap id="TP" type="Teacher_Property_Value">
+        <id column="teacher_property_value_id" property="teacher_property_value_id"></id>
+        <result column="property_value" property="property_value"></result>
+        <association property="teacher_property" javaType="Teacher_Property">
+            <id column="teacher_property_id" property="teacher_property_id"></id>
+            <result column="property_name" property="property_name"></result>
+
+        </association>
+    </resultMap>
+    <select id="get" parameterType="int" resultMap="TP">
+        SELECT teacher_property_value.teacher_property_id,teacher_property_value.property_value,
+        teacher_property.teacher_property_id,teacher_property.property_name,
+        teacher.teacher_id,teacher.name,teacher.password,teacher.username,teacher.role
+        FROM teacher_property_value
+        JOIN teacher_property ON teacher_property_value.teacher_property_id = teacher_property.teacher_property_id
+        JOIN  teacher ON  teacher_property.teacher_id = teacher.teacher_id
+        WHERE teacher_property_value.teacher_property_id=#{value}
+    </select>
+
+    <delete id="deleteOneLine" parameterType="int">
+        DELETE FROM teacher_property_value WHERE  teacher_property_value_id=#{value}
+    </delete>
+
+    <delete id="deleteAllByproperty" parameterType="int">
+        DELETE  FROM  teacher_property_value WHERE  teacher_property_id=#{value}
+    </delete>
+
+    <insert id="add" parameterType="Teacher_Property_Value">
+        INSERT  INTO teacher_property_value VALUES (null,#{property_value},#{teacher_property.teacher_property_id})
+    </insert>
+
+    <update id="update" parameterType="Teacher_Property_Value">
+        UPDATE teacher_property_value SET property_value=#{property_value},
+        teacher_property_id=#{teacher_property.teacher_property_id}
+        WHERE  teacher_property_id=#{teacher_property_value_id}
+    </update>
+</mapper>

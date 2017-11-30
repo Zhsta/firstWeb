@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.T_PropertyMapper">
+
+    <resultMap id="tp" type="Teacher_Property">
+        <id column="teacher_property_id" property="teacher_property_id"></id>
+        <result column="property_name" property="property_name"></result>
+        <association property="teacher" javaType="Teacher">
+            <id column="teacher_id" property="teacher_id"></id>
+            <result column="role" property="role"></result>
+            <result column="password" property="password"></result>
+            <result column="name" property="name"></result>
+            <result column="username" property="username"></result>
+        </association>
+    </resultMap>
+
+    <select id="getAllByTeacher" resultMap="tp" parameterType="int">
+        SELECT teacher_property.teacher_property_id,teacher_property.property_name,
+               teacher.*
+              FROM teacher_property JOIN teacher ON teacher_property.teacher_id = teacher.teacher_id
+              WHERE teacher_property.teacher_id=#{value}
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM  teacher_property WHERE teacher_id=#{value}
+    </delete>
+
+    <insert id="add" parameterType="Teacher_Property">
+        insert INTO teacher_property VALUES (null,#{property_name},#{teacher.teacher_id})
+    </insert>
+
+    <update id="updata" parameterType="Teacher_Property">
+        UPDATE teacher_property SET property_name=#{property_name},
+                                    teacher_id=#{teacher.teacher_id}
+                                    WHERE teacher_property_id=#{teacher_property_id}
+    </update>
+
+    <select id="get" parameterType="int" resultMap="tp">
+        SELECT teacher_property.teacher_property_id,teacher_property.property_name,
+               teacher.*
+              FROM teacher_property JOIN teacher ON teacher_property.teacher_id = teacher.teacher_id
+              WHERE teacher_property.teacher_property_id=#{value}
+    </select>
+
+    <delete id="deleteById" parameterType="int">
+        DELETE  FROM  teacher_property WHERE teacher_property_id=#{value}
+    </delete>
+</mapper>

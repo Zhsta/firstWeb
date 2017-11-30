@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.C_ValueMapper">
+
+
+    <resultMap id="CourseValue" type="Course_Value">
+        <id column="course_value_id" property="course_value_id"></id>
+        <result column="begin" property="begin"></result>
+        <result column="end" property="end"></result>
+        <result column="classes" property="classes"></result>
+        <result column="credit" property="credit"></result>
+        <result column="number" property="number"></result>
+        <result column="teachername" property="teachername"></result>
+    </resultMap>
+
+    <select id="get" parameterType="int" resultMap="CourseValue">
+        SELECT course_value.begin,course_value.end,course_value.classes,course_value.credit,
+        course_value.teachername,course_value.number
+        FROM course_value
+        WHERE course_value.course_id=#{value} order by course_value_id
+    </select>
+
+
+    <insert id="add" parameterType="Course_Value">
+        INSERT INTO course_value VALUES(null,#{begin},#{number}
+                                       ,#{end},#{credit},#{course.course_id},#{classes},#{teachername})
+    </insert>
+
+    <update id="update" >
+
+        UPDATE course_value SET course_value_id=#{course_value.course_value_id},
+                                begin=#{course_value.begin},
+                                number=#{course_value.number},
+                                end=#{course_value.end},
+                                credit=#{course_value.credit},
+                                classes=#{course_valueclasses},
+                                teachername=#{teachername}
+                                WHERE course_id=#{courseId}
+    </update>
+
+   <delete id="delete" parameterType="int">
+       DELETE FROM course_value WHERE course_id=#{value}
+   </delete>
+
+</mapper>

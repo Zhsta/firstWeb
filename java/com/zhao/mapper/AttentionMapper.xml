@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.AttentionMapper">
+    <select id="listAll" resultType="Attention">
+        SELECT * FROM attention
+    </select>
+
+    <insert id="add" parameterType="Attention">
+        INSERT INTO attention VALUES (null,#{content},#{date})
+    </insert>
+
+    <update id="update" parameterType="Attention">
+        UPDATE attention SET content=#{content},date=#{date} where
+        id=#{id}
+    </update>
+
+    <select id="getOne" parameterType="string" resultType="Attention">
+       SELECT * FROM attention WHERE content=#{value}
+    </select>
+
+    <delete id="delete" parameterType="string">
+        DELETE FROM attention WHERE content=#{value}
+    </delete>
+
+    <delete id="deleteByDate" parameterType="date">
+        DELETE  FROM  attention WHERE "date"=#{value}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.S_CMapper">
+    <delete id="deleteAllByStudent" parameterType="int">
+        DELETE FROM  student_course WHERE student_id=#{value}
+    </delete>
+
+    <delete id="deleteAllByCourse" parameterType="int">
+        DELETE FROM  student_course WHERE  course_id=#{value}
+    </delete>
+
+    <delete id="deleteOneLine">
+        DELETE  FROM  student_course WHERE course_id=#{courseId} and student_id=#{studentId}
+    </delete>
+
+
+    <update id="updateByStudent">
+        UPDATE student_course SET course_id=#{courseId} WHERE student_id=#{studentId}
+    </update>
+
+    <update id="updateByCourse">
+        UPDATE  student_course SET  student_id=#{studentId} WHERE  course_id=#{courseId}
+    </update>
+
+    <insert id="add">
+        INSERT INTO student_course VALUES (#{courseId},#{studentId},null)
+    </insert>
+
+    <resultMap id="course_teacher" type="Course">
+        <id property="course_id" column="course_id"></id>
+        <result property="course_name"  column="course_name"></result>
+    </resultMap>
+    <select id="getByStudent" parameterType="int" resultMap="course_teacher">
+        SELECT course.course_id ,course.course_name
+        FROM student_course
+        JOIN course ON student_course.course_id=course.course_id
+        WHERE student_course.student_id=#{value}
+        ORDER BY course_id
+    </select>
+
+    <select id="getByCourse" parameterType="int" resultType="Student">
+        SELECT student.* FROM student_course
+        JOIN  student ON  student_course.student_id = student.student_id
+        WHERE student_course.course_id=#{value} order by student_id
+    </select>
+
+
+    <select id="get" resultType="integer">
+        SELECT course_id FROM  student_course WHERE student_id=#{studentId} and course_id=#{courseId}
+    </select>
+</mapper>

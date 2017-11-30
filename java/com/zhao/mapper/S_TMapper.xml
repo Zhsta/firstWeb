@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.S_TMapper">
+    <delete id="deleteAllByStudent" parameterType="int">
+        DELETE FROM  student_teacher WHERE student_id=#{value}
+    </delete>
+
+    <delete id="deleteOneLine" >
+        DELETE FROM student_teacher WHERE teacher_id=#{teacherId} and studentId=#{studentId}
+    </delete>
+
+
+    <delete id="deleteAllByTeacher" parameterType="int">
+        DELETE FROM  student_teacher WHERE teacher_id=#{value}
+    </delete>
+
+    <update id="updateByStudent">
+        UPDATE student_teacher SET teacher_id=#{teacherId} WHERE student_id=#{studentId}
+    </update>
+
+    <update id="updateByTeacher">
+        UPDATE  student_teacher SET  student_id=#{studentId} WHERE teacher_id=#{teacherId}
+    </update>
+
+    <insert id="add">
+        INSERT INTO student_teacher VALUES (#{studentId},#{teacherId})
+    </insert>
+
+    <select id="getByStudent" parameterType="int" resultType="Teacher">
+        SELECT teacher.* FROM student_teacher JOIN teacher ON student_teacher.teacher_id=teacher.teacher_id
+        WHERE student_teacher.student_id=#{value}
+    </select>
+
+    <select id="getByTeacher" parameterType="int" resultType="Student">
+        SELECT student.* FROM student_teacher JOIN student ON  student_teacher.student_id = student.student_id
+        WHERE  student_teacher.teacher_id=#{value}
+    </select>
+</mapper>

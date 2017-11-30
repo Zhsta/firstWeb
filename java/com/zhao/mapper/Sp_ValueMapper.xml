@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.SP_ValueMapper">
+    <resultMap id="getspv" type="Student_Property_Value">
+        <id column="student_property_value_id" property="student_property_value_id"></id>
+        <result column="value" property="value"></result>
+        <association property="student_property" javaType="Student_Property">
+            <id column="property_id" property="property_id"></id>
+            <result column="property_name" property="property_name"></result>
+
+        </association>
+    </resultMap>
+    <select id="get" parameterType="int" resultMap="getspv">
+      SELECT student_property_value.student_property_value_id,
+      student_property_value.value,student_property.property_id,student_property.property_name,
+      student.student_id,student.username,student.password,student.name,student.role
+      FROM student_property_value
+      JOIN student_property ON student_property_value.property_id = student_property.property_id
+      JOIN student ON  student_property.student_id = student.student_id
+      WHERE student_property_value.property_id=#{value} order by student_property_value_id
+    </select>
+
+    <delete id="delete" parameterType="int">
+        DELETE FROM student_property_value WHERE property_id=#{value}
+    </delete>
+
+    <insert id="add" parameterType="Student_Property_Value">
+        INSERT INTO  student_property_value VALUES (null,#{value},#{student_property.property_id})
+    </insert>
+
+    <update id="update" parameterType="Student_Property_Value">
+        UPDATE student_property_value SET value=#{value},property_id=#{student_property.property_id}
+    </update>
+ </mapper>

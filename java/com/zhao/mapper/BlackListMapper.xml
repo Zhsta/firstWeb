@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhao.mapper.BlackListMapper">
+
+    <select id="get" parameterType="string" resultType="BlackList">
+        SELECT *  FROM  black_list WHERE username=#{value}
+    </select>
+
+    <delete id="delete" parameterType="string">
+        DELETE  FROM  black_list WHERE username=#{value}
+    </delete>
+
+    <insert id="add" parameterType="BlackList">
+        INSERT  INTO  black_list VALUES (null,#{username},#{reason})
+    </insert>
+
+    <update id="update" parameterType="BlackList">
+        UPDATE black_list SET  username=#{username},reason=#{reason} where id=#{id}
+    </update>
+</mapper>

@@ -28,4 +28,4 @@ IDE：Intellij Idea
 在管理员账户，创建学生老师以及课程信息
 
 # 功能简介以及表结构
-![image](http://github.com/Zhsta/firstWeb/img/master//xxx.png)
+![image](http://github.com/Zhsta/firstWeb/img/master/1.png)
